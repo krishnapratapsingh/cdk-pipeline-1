@@ -6,7 +6,7 @@ import { Project } from '@aws-cdk/aws-codebuild';
 import { Bucket } from '@aws-cdk/aws-s3';
 import {
   GIT_BRANCH,
-} from '../shared/constants';
+} from '../comman/constants';
 
 export class FirstCftPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -17,7 +17,7 @@ export class FirstCftPipelineStack extends Stack {
 
     const sourceBucket = new Bucket( this, 'SourceBucket1286');
     const deployBucket = new Bucket(this, 'DeployBucket1286');
-    const deployInput = new codepipeline.Artifact();
+    const deployInput = new Artifact('S3deploy');
     const GitHubAction = new BitBucketSourceAction({
       actionName: 'Checkout',
       owner: 'krishnapratapsingh',
@@ -44,9 +44,10 @@ export class FirstCftPipelineStack extends Stack {
 		 new S3DeployAction({
           actionName: 'S3Deploy',
           bucket: deployBucket,
-          input: deployInput,
+          input: repoSourceArtifact,
           runOrder: 1,
         }),
+		 ],
 		},
       ],
     });

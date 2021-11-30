@@ -18,7 +18,7 @@ export class CdkPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const gitHubConnectionArn = StringParameter.valueForStringParameter(this, gitHubConnectionArnParameterStorePath);
+   // const gitHubConnectionArn = StringParameter.valueForStringParameter(this, gitHubConnectionArnParameterStorePath);
 
     const repoSourceArtifact = new Artifact('SourceArtifact');
     const sourceArtifact = new Artifact('SourceArtifact');
@@ -34,7 +34,7 @@ export class CdkPipelineStack extends Stack {
         owner: 'krishnapratapsingh',
         repo: 'cdk-pipeline',
         branch: GIT_BRANCH,
-        connectionArn: gitHubConnectionArn,
+        connectionArn: "arn:aws:codestar-connections:us-east-1:637791486797:connection/74a184e0-e9c0-46a3-bba4-f25d5b0c27e2"//gitHubConnectionArn,
         output: repoSourceArtifact,
       }),
 

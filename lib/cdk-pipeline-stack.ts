@@ -6,7 +6,7 @@ import { CdkPipeline, SimpleSynthAction } from '@aws-cdk/pipelines';
 import { StringParameter } from '@aws-cdk/aws-ssm';
 import { name, description as desc } from '../package.json';
 import { gitHubConnectionArnParameterStorePath, GIT_BRANCH } from './comman/constants';
-
+import { CdkchildpipelineRelease } from './cdk-pipeline-stack-release'
 
 export const service = name;
 export const description = desc;
@@ -48,5 +48,8 @@ export class CdkPipelineStack extends Stack {
         },
       }),
     });
+        // This is where we add the application stages
+    const deploy = new CdkchildpipelineRelease(this, 'CdkDeploy-Child-pipeline');
+    corePipeline.addApplicationStage(deploy);
 }
 }

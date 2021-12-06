@@ -7,6 +7,7 @@ import { Bucket } from '@aws-cdk/aws-s3';
 import { StringParameter } from '@aws-cdk/aws-ssm';
 import {
   GIT_BRANCH,
+  gitHubConnectionArnParameterStorePath,
 } from '../comman/constants';
 
 export class FirstCftPipelineStack extends Stack {

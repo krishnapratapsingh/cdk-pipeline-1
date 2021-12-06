@@ -11,7 +11,7 @@ if (!NODE_ENV) {
 
 
 const app = new App();
-const env = { region: 'us-east-1' };
+const env = { region: 'ap-south-1' };
 new CdkPipelineStack(app, `${service}-stack`, {
 	env,
 });

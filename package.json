@@ -11,7 +11,7 @@
     "test": "jest",
     "cdk": "cdk",
     "build:poc": "cross-env NODE_ENV=poc tsc",
-    "synth:poc": "npm run build:poc && NODE_ENV=poc cdk synth '*'",
+    "synth:poc": "npm run build:poc && cross-env NODE_ENV=poc cdk synth '*'",
     "deploy:poc": "npm run build:poc && cross-env NODE_ENV=poc cdk deploy '*' --require-approval never"
   },
   "devDependencies": {

@@ -8,6 +8,7 @@ import { name, description as desc } from '../package.json';
 import { gitHubConnectionArnParameterStorePath, GIT_BRANCH } from './comman/constants';
 import { CdkchildpipelineRelease } from './cdk-pipeline-stack-release'
 
+const { NODE_ENV } = process.env;
 export const service = name;
 export const description = desc;
 
@@ -18,7 +19,7 @@ export class CdkPipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-   // const gitHubConnectionArn = StringParameter.valueForStringParameter(this, gitHubConnectionArnParameterStorePath);
+    const gitHubConnectionArn = StringParameter.valueForStringParameter(this, gitHubConnectionArnParameterStorePath);
 
     const repoSourceArtifact = new Artifact('SourceArtifact');
     const sourceArtifact = new Artifact('SourceArtifact');
@@ -32,9 +33,9 @@ export class CdkPipelineStack extends Stack {
       sourceAction: new BitBucketSourceAction({
         actionName: 'Checkout',
         owner: 'krishnapratapsingh',
-        repo: 'cdk-pipeline',
+        repo: 'cdk-pipeline-1',
         branch: GIT_BRANCH,
-        connectionArn: "arn:aws:codestar-connections:us-east-1:637791486797:connection/74a184e0-e9c0-46a3-bba4-f25d5b0c27e2",//gitHubConnectionArn,
+        connectionArn: gitHubConnectionArn,
         output: repoSourceArtifact,
       }),
 
@@ -45,6 +46,11 @@ export class CdkPipelineStack extends Stack {
         installCommand: 'npm install --production=false',
         environment: {
           privileged: true,
+        },
+        environmentVariables: {
+          NODE_ENV: {
+            value: NODE_ENV,
+          },
         },
       }),
     });

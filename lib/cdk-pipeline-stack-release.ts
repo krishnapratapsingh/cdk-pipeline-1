@@ -2,6 +2,7 @@ import { Stage, Construct, StageProps,} from '@aws-cdk/core';
 import { FirstCftPipelineStack } from './stacks/myFirstChildPipeline';
 import { cfnlintProjStack } from './stacks/cfn-lint-stack';
 
+const { NODE_ENV } = process.env;
 
 export class CdkchildpipelineRelease extends Stage {
   constructor(scope: Construct, id: string, props?: StageProps) {

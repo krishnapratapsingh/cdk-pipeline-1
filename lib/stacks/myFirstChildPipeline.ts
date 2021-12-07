@@ -4,8 +4,10 @@ import { Artifact, Pipeline } from '@aws-cdk/aws-codepipeline';
 import { BitBucketSourceAction, CodeBuildAction, S3DeployAction } from '@aws-cdk/aws-codepipeline-actions';
 import { Project } from '@aws-cdk/aws-codebuild';
 import { Bucket } from '@aws-cdk/aws-s3';
+import { StringParameter } from '@aws-cdk/aws-ssm';
 import {
   GIT_BRANCH,
+  gitHubConnectionArnParameterStorePath,
 } from '../comman/constants';
 
 export class FirstCftPipelineStack extends Stack {
@@ -14,7 +16,8 @@ export class FirstCftPipelineStack extends Stack {
 
     const repoSourceArtifact = new Artifact('SourceArtifact');
     const cloudFormationArtifact = new Artifact('CloudFormationPrepareOutput');
-
+    const gitHubConnectionArn = StringParameter.valueForStringParameter(this, gitHubConnectionArnParameterStorePath);
+	
     const sourceBucket = new Bucket( this, 'SourceBucket1286');
     const deployBucket = new Bucket(this, 'DeployBucket1286');
     const deployInput = new Artifact('S3deploy');
@@ -23,7 +26,7 @@ export class FirstCftPipelineStack extends Stack {
       owner: 'krishnapratapsingh',
       repo: 'cdk-firstchild',
       branch: GIT_BRANCH,
-      connectionArn: 'arn:aws:codestar-connections:us-east-1:637791486797:connection/070063ed-8fe5-4449-8f54-3cdb9fb23c9',
+      connectionArn: gitHubConnectionArn,
       output: repoSourceArtifact,
     });
 

@@ -14,8 +14,8 @@
     "synth:poc": "npm run build:poc && cross-env NODE_ENV=poc cdk synth '*'",
     "deploy:poc": "npm run build:poc && cross-env NODE_ENV=poc cdk deploy '*' --require-approval never",
     "build:dev": "cross-env NODE_ENV=dev tsc",
-    "synth:dev": "npm run build:poc && cross-env NODE_ENV=dev cdk synth '*'",
-    "deploy:dev": "npm run build:poc && cross-env NODE_ENV=dev cdk deploy '*' --require-approval never"
+    "synth:dev": "npm run build:dev && cross-env NODE_ENV=dev cdk synth '*'",
+    "deploy:dev": "npm run build:dev && cross-env NODE_ENV=dev cdk deploy '*' --require-approval never"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.111.0",
